@@ -1,21 +1,18 @@
-// const mongoose =  require("mongoose");
+// const mongoose = require("mongoose");
 
 // async function connectMongoDB(url) {
-//     return mongoose.connect(url);
+//   return mongoose.connect(url);
 // }
 
 // module.exports = {
-//     connectMongoDB
-// }
+//   connectMongoDB,
+// };
 
 const mongoose = require("mongoose");
-
+mongoose.set("strictQuery" ,  true)
 async function connectMongoDB(url) {
   try {
-    await mongoose.connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(url);
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error("Failed to connect to MongoDB", error);
