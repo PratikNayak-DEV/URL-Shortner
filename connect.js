@@ -1,21 +1,12 @@
-// const mongoose = require("mongoose");
-
-// async function connectMongoDB(url) {
-//   return mongoose.connect(url);
-// }
-
-// module.exports = {
-//   connectMongoDB,
-// };
-
 const mongoose = require("mongoose");
-mongoose.set("strictQuery" ,  true)
-async function connectMongoDB(url) {
+
+async function connectMongoDB(URL) {
   try {
-    await mongoose.connect(url);
-    console.log("Connected to MongoDB");
+    // const uri = 'mongodb://127.0.0.1:27017/URL-SHORTNER';
+    await mongoose.connect(URL);
+    console.log("MongoDB Connected Successfully");
   } catch (error) {
-    console.error("Failed to connect to MongoDB", error);
+    console.error("MongoDB Connection Error:", error.message);
   }
 }
 
