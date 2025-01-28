@@ -5,60 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>URL Shortener</title>
   <style>
-    :root {
-      --bg-color: #f4f4f9;
-      --text-color: #333;
-      --link-color: #3498db;
-      --button-bg: #3498db;
-      --button-text: #fff;
-      --card-bg: #fff;
-      --table-header-bg: #3498db;
-      --table-header-text: #fff;
-      --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    [data-theme="dark"] {
-      --bg-color: #1f1f1f;
-      --text-color: #f1f1f1;
-      --link-color: #82cfff;
-      --button-bg: #82cfff;
-      --button-text: #000;
-      --card-bg: #2b2b2b;
-      --table-header-bg: #333;
-      --table-header-text: #82cfff;
-      --box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
-    }
-
+    /* General styles */
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
       margin: 0;
       padding: 0;
-      transition: background-color 0.3s, color 0.3s;
+      box-sizing: border-box;
+      background-color: #f4f4f9;
+      color: #333;
     }
 
     h2 {
       text-align: center;
       margin: 20px 0;
-      color: var(--text-color);
-    }
-
-    .mode-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: var(--button-bg);
-      color: var(--button-text);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .mode-toggle:hover {
-      filter: brightness(1.2);
+      color: #2c3e50;
     }
 
     form {
@@ -68,8 +28,8 @@
       gap: 10px;
       margin: 20px auto;
       padding: 20px;
-      background: var(--card-bg);
-      box-shadow: var(--box-shadow);
+      background: #ffffff;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       max-width: 500px;
       width: 90%;
@@ -77,6 +37,7 @@
 
     label {
       font-weight: bold;
+      color: #2c3e50;
     }
 
     input[type="text"] {
@@ -85,39 +46,35 @@
       width: 100%;
       border: 1px solid #ddd;
       border-radius: 4px;
-      color: var(--text-color);
-      background-color: var(--card-bg);
     }
 
     button {
       padding: 10px 20px;
       font-size: 16px;
-      background-color: var(--button-bg);
-      color: var(--button-text);
+      background-color: #3498db;
+      color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s;
     }
 
     button:hover {
-      filter: brightness(1.2);
+      background-color: #2980b9;
     }
 
     .generated-link {
       text-align: center;
-      margin: 20px auto;
+      margin: 20px 0;
       padding: 10px;
       background: #dff0d8;
       border: 1px solid #d6e9c6;
       color: #3c763d;
       border-radius: 8px;
-      max-width: 500px;
-      width: 90%;
     }
 
     .generated-link a {
-      color: var(--link-color);
+      color: #3c763d;
       font-weight: bold;
       text-decoration: none;
     }
@@ -126,8 +83,8 @@
       border-collapse: collapse;
       width: 90%;
       margin: 20px auto;
-      background: var(--card-bg);
-      box-shadow: var(--box-shadow);
+      background: #ffffff;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       overflow: hidden;
     }
@@ -137,23 +94,58 @@
       padding: 12px 15px;
       text-align: left;
       border-bottom: 1px solid #ddd;
-      color: var(--text-color);
     }
 
     table th {
-      background: var(--table-header-bg);
-      color: var(--table-header-text);
+      background: #3498db;
+      color: #ffffff;
       font-weight: bold;
     }
 
     table tr:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: #f1f1f1;
+    }
+
+    @media (max-width: 600px) {
+      table th, table td {
+        font-size: 12px;
+        padding: 10px;
+      }
+
+      table thead {
+        display: none;
+      }
+
+      table, table tr, table td {
+        display: block;
+        width: 100%;
+      }
+
+      table tr {
+        margin-bottom: 15px;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+      }
+
+      table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        text-align: left;
+        font-weight: bold;
+      }
     }
   </style>
 </head>
-<body data-theme="light">
-  <button class="mode-toggle" id="mode-toggle">Switch to Dark Mode</button>
-
+<body>
   <h2>URL Shortener</h2>
 
   <% if (locals.id) { %>
@@ -190,21 +182,5 @@
       </tbody>
     </table>
   <% } %>
-
-  <script>
-    const modeToggle = document.getElementById('mode-toggle');
-    const body = document.body;
-
-    // Set up event listener
-    modeToggle.addEventListener('click', () => {
-      if (body.dataset.theme === 'dark') {
-        body.dataset.theme = 'light';
-        modeToggle.textContent = 'Switch to Dark Mode';
-      } else {
-        body.dataset.theme = 'dark';
-        modeToggle.textContent = 'Switch to Light Mode';
-      }
-    });
-  </script>
 </body>
 </html>
