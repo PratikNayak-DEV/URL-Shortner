@@ -12,7 +12,7 @@ const PORT = 8004;
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
-
+app.use(express.static(path.join(__dirname,"public")));
 // Set the view engine to ejs
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));

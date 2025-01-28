@@ -15,7 +15,7 @@ const urlShortner = new mongoose.Schema(
         {
           timestamp: {
             type: Number, // Correctly defines a timestamp as a number
-          },
+          }, 
         },
       ],
     },
