@@ -13,7 +13,7 @@ const PORT = 8004;
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use(express.static(path.join(__dirname,"public")));
-// Set the view engine to ejs
+// Set the view engine to ejs  
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
     
