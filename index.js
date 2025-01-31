@@ -1,11 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const { log } = require("console");
+
+
 const urlRoutes = require("./routes/url.js");
 const URL = require("./models/url.js");
 const staticRoute = require('./routes/staticRouter.js')
 const { connectMongoDB } = require("./connect.js");
-const { log } = require("console");
+const userRoute =  require("./routes/user.js")
+
 const app = express();
 const PORT = 8004;
 
@@ -18,7 +22,8 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
     
 app.use("/url", urlRoutes);
-app.use("/" , staticRoute)
+app.use("/" , staticRoute);
+app.use("/user", userRoute);
 
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;

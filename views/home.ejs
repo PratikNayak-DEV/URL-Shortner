@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>URL Shortener</title>
-  <!-- <link rel="stylesheet" href="/style.css"> -->
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <h2>URL Shortener</h2>
@@ -20,28 +20,5 @@
     <input type="text" name="url" placeholder="https://example.com" />
     <button type="submit">Generate</button>
   </form>
-
-  <!-- <% if (locals.urls) { %>
-    <table>
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>ShortID</th>
-          <th>Redirect</th>
-          <th>Clicks</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% urls.forEach((url, index) => { %>
-          <tr>
-            <td data-label="S.No"><%= index + 1 %></td>
-            <td data-label="ShortID"><%= url.shortId %></td>
-            <td data-label="Redirect"><a target="_blank" href="<%= url.redirectURL %>"><%= url.redirectURL %></a></td>
-            <td data-label="Clicks"><%= url.visitHistory.length %></td>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-  <% } %> -->
 </body>
 </html>
