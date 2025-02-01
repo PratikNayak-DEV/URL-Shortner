@@ -2,8 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const { log } = require("console");
+const cookieParser = require("cookie-parser");
 
-
+const { restrictToLoggedinUserOnly } = require('./middlewares/auth.js')
 const urlRoutes = require("./routes/url.js");
 const URL = require("./models/url.js");
 const staticRoute = require('./routes/staticRouter.js')
@@ -16,12 +17,14 @@ const PORT = 8004;
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
+app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname,"public")));
 // Set the view engine to ejs  
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
     
-app.use("/url", urlRoutes);
+app.use("/url",restrictToLoggedinUserOnly,urlRoutes);
 app.use("/" , staticRoute);
 app.use("/user", userRoute);
 
